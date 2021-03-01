@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/partyList">
+    <fragment
+        android:id="@+id/partyList"
+        android:name="com.example.aanestakansanedustajaa.partylist.PartyList"
+        android:label="PartyList" >
+        <action
+            android:id="@+id/action_showMembers"
+            app:destination="@id/memberList" />
+    </fragment>
+    <fragment
+        android:id="@+id/memberList"
+        android:name="com.example.aanestakansanedustajaa.memberlist.MemberList"
+        android:label="MemberList" >
+        <argument
+            android:name="selectedParty"
+            app:argType="com.example.aanestakansanedustajaa.database.ParliamentData" />
+        <action
+            android:id="@+id/action_showDetails"
+            app:destination="@id/memberDetails" />
+    </fragment>
+    <fragment
+        android:id="@+id/memberDetails"
+        android:name="com.example.aanestakansanedustajaa.memberdetails.MemberDetails"
+        android:label="MemberDetails" >
+        <argument
+            android:name="selectedMember"
+            app:argType="com.example.aanestakansanedustajaa.database.ParliamentData" />
+    </fragment>
+</navigation>
