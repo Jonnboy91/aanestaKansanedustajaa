@@ -17,7 +17,7 @@ For this I got help from my school mate https://github.com/tuoku
 #### Getting the points
 Getting everyones hetekaID & score from the database:
 `GET http://users.metropolia.fi/~jonne/eduskunta/?action=getall`  
-Palauttaa:  
+Returns:  
 ```
 [{
     "hetekaID": "1297",
