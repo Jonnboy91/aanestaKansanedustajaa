@@ -41,3 +41,17 @@ Voting Katja Hänninen (hetekaID 1276) down:
 `GET users.metropolia.fi/~jonne/eduskunta?id=1276&action=minus`  
 Returns:  
 `{"message":"success"}`  
+
+
+## Photos
+
+Few screenshots that have been taken from the Android Studio Emulator
+
+First view: Different parties
+![PartyList](https://user-images.githubusercontent.com/58616855/109813759-6c2e8b80-7c36-11eb-9139-cb9caa1ee1cc.png)
+
+Second view: Members under chosen party
+![MemberList](https://user-images.githubusercontent.com/58616855/109813772-6fc21280-7c36-11eb-9bea-6fb001508ff7.png)
+
+Third view: Details of the member chosen
+![MemberDetails](https://user-images.githubusercontent.com/58616855/109813775-72bd0300-7c36-11eb-9a2f-5eff281eabb9.png)
