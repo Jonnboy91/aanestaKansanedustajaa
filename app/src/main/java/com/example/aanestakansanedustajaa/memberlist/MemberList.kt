@@ -22,7 +22,6 @@ import com.example.aanestakansanedustajaa.memberdetails.MemberDetailsViewModelFa
 class MemberList : Fragment() {
 
     private lateinit var viewModel: MemberListViewModel
-    private lateinit var viewModel2: MemberDetailsViewModel
     private lateinit var binding: FragmentMemberListBinding
     private lateinit var adapterMember: MemberListAdapter
 
@@ -31,11 +30,9 @@ class MemberList : Fragment() {
         val application = requireNotNull(activity).application
         val parliamentData = MemberListArgs.fromBundle(requireArguments()).selectedParty
         val viewModelFactory = MemberListViewModelFactory(parliamentData, application)
-        val viewModelFactory2 = MemberDetailsViewModelFactory(parliamentData, application)
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_member_list, container, false)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MemberListViewModel::class.java)
-        viewModel2 = ViewModelProvider(this, viewModelFactory2).get(MemberDetailsViewModel::class.java)
         adapterMember = MemberListAdapter(MemberListAdapter.OnClickListener {
             viewModel.displayMemberDetails(it)
         })
@@ -50,7 +47,8 @@ class MemberList : Fragment() {
             adapterMember.submitList(it)
         })
 
-        viewModel2.votes.observe(viewLifecycleOwner, Observer {
+        viewModel.votes.observe(viewLifecycleOwner, Observer {
+
         })
 
         // Navigates to the next fragment and takes the chosen parliamentData to the next fragment, so it can be used there.

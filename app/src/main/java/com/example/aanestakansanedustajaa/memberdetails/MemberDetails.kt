@@ -41,7 +41,7 @@ class MemberDetails : Fragment() {
 
         // Observes the vote record from the repository
         viewModel.votes.observe(viewLifecycleOwner, Observer {
-            binding.voteResult.text = it.find { it.hetekaID == parliamentData.hetekaId }?.score.toString()
+            binding.voteResult.text = "Score: ${it.find { it.hetekaID == parliamentData.hetekaId }?.score.toString()}"
         })
 
         return binding.root

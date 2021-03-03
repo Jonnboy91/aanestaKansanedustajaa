@@ -30,35 +30,6 @@ class PartyListViewModel(application: Application) : AndroidViewModel(applicatio
     val navigateToSelectedParty: LiveData<ParliamentData>
         get() = _navigateToSelectedParty
 
-    init {
-//        refreshDataFromRepository()
-//        refreshVotesFromRepository()
-    }
-
-//    // Refreshes Database from the API
-//    fun refreshVotesFromRepository() {
-//        viewModelScope.launch {
-//            try {
-//                votingRepository.refreshVotingDataEntry()
-//            } catch (networkError: IOException) {
-//                Toast.makeText(MyApp.appContext, "$networkError",
-//                    Toast.LENGTH_LONG).show()
-//            }
-//        }
-//    }
-
-
-    private fun refreshDataFromRepository() {
-        viewModelScope.launch {
-            try {
-                parliamentRepository.refreshParliamentDataEntry()
-            } catch (networkError: IOException) {
-                Toast.makeText(MyApp.appContext, "$networkError",
-                    Toast.LENGTH_LONG).show()
-            }
-        }
-    }
-
     fun displayPartyDetails(memberData: ParliamentData) {
         _navigateToSelectedParty.value = memberData
     }

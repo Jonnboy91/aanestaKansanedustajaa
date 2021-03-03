@@ -36,7 +36,7 @@ class MemberListAdapter(private val onClickListener: OnClickListener): ListAdapt
         // Showing members name
         holder.itemView.findViewById<TextView>(R.id.members).text = "${parliamentData.firstname} ${parliamentData.lastname}"
         // Showing members score
-        holder.itemView.findViewById<TextView>(R.id.likeResult).text = votes.value?.find { it.hetekaID == parliamentData.hetekaId }?.score.toString()
+        holder.itemView.findViewById<TextView>(R.id.likeResult).text = "Score: ${votes.value?.find { it.hetekaID == parliamentData.hetekaId }?.score.toString()}"
         // Showing members image
         bindImage(holder.itemView.findViewById(R.id.photo_member), "https://avoindata.eduskunta.fi/${parliamentData.pictureUrl}")
         // OnClick event for choosing a member and then transferring the info to MemberDetails fragment

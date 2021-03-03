@@ -20,6 +20,7 @@ class MemberListViewModel(parliamentData: ParliamentData, application: Applicati
     var votes = votingRepository.votingData
 
 
+
     // LiveData to handle navigation to the selected member
     private val _navigateToSelectedMember = MutableLiveData<ParliamentData>()
     val navigateToSelectedMember: LiveData<ParliamentData>
