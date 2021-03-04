@@ -4,6 +4,7 @@ import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.aanestakansanedustajaa.MyApp
+import com.example.aanestakansanedustajaa.adapters.MemberListAdapter
 import com.example.aanestakansanedustajaa.database.ParliamentData
 import com.example.aanestakansanedustajaa.repository.ParliamentRepository
 import com.example.aanestakansanedustajaa.repository.VotingRepository
@@ -19,11 +20,9 @@ class MemberListViewModel(parliamentData: ParliamentData, application: Applicati
     private val votingRepository = VotingRepository
     var votes = votingRepository.votingData
 
-
-
     // LiveData to handle navigation to the selected member
-    private val _navigateToSelectedMember = MutableLiveData<ParliamentData>()
-    val navigateToSelectedMember: LiveData<ParliamentData>
+    private val _navigateToSelectedMember = MutableLiveData<ParliamentData?>()
+    val navigateToSelectedMember: LiveData<ParliamentData?>
         get() = _navigateToSelectedMember
 
     // The internal MutableLiveData for the selected property

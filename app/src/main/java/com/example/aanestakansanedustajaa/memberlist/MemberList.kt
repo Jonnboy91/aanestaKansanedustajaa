@@ -47,10 +47,6 @@ class MemberList : Fragment() {
             adapterMember.submitList(it)
         })
 
-        viewModel.votes.observe(viewLifecycleOwner, Observer {
-
-        })
-
         // Navigates to the next fragment and takes the chosen parliamentData to the next fragment, so it can be used there.
         viewModel.navigateToSelectedMember.observe(viewLifecycleOwner, Observer {
             if ( null != it ) {

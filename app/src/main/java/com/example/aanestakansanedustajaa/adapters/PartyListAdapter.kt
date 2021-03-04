@@ -12,20 +12,25 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.aanestakansanedustajaa.MyApp
 import com.example.aanestakansanedustajaa.R
 import com.example.aanestakansanedustajaa.database.ParliamentData
+import com.example.aanestakansanedustajaa.databinding.GridViewMemberBinding
+import com.example.aanestakansanedustajaa.databinding.GridViewPartyBinding
 
 class PartyListAdapter(private val onClickListener: OnClickListener): ListAdapter<ParliamentData, PartyListAdapter.PartyViewHolder>(PartyDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PartyViewHolder {
-        val itemView = LayoutInflater.from(MyApp.appContext).inflate(R.layout.grid_view_party, parent, false)
-        return PartyViewHolder(itemView)
+//        val itemView = LayoutInflater.from(MyApp.appContext).inflate(R.layout.grid_view_party, parent, false)
+//        return PartyViewHolder(itemView)
+        val binding = GridViewPartyBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
+        return PartyListAdapter.PartyViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: PartyViewHolder, position: Int) {
-        // could use binding?
+
         val parliamentData = getItem(position)
 
         // Setting the name of the party from the abbreviation to the full name
-        holder.itemView.findViewById<TextView>(R.id.party).text = when (parliamentData.party){
+        holder.binding.party.text = when (parliamentData.party){
             "vihr" -> "Vihreä liitto"
             "ps" -> "Perussuomalaiset"
             "kesk" -> "Suomen Keskusta"
@@ -38,7 +43,7 @@ class PartyListAdapter(private val onClickListener: OnClickListener): ListAdapte
         }
 
         // Checking the party name and using the right logo for that
-        holder.itemView.findViewById<ImageView>(R.id.logo_party).setImageResource(when(parliamentData.party) {
+        holder.binding.logoParty.setImageResource(when (parliamentData.party){
             "vihr" -> R.drawable.vihr
             "ps" -> R.drawable.ps
             "kesk" -> R.drawable.kesk
@@ -49,11 +54,13 @@ class PartyListAdapter(private val onClickListener: OnClickListener): ListAdapte
             "r" -> R.drawable.r
             else -> R.drawable.liike
         })
+
         // OnClick event for choosing a member and then transferring the info to MemberList fragment
         holder.itemView.setOnClickListener { onClickListener.onClick(parliamentData) }
     }
 
-    class PartyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
+    class PartyViewHolder(val binding: GridViewPartyBinding)
+        :RecyclerView.ViewHolder(binding.root)
 
     companion object PartyDiffCallback: DiffUtil.ItemCallback<ParliamentData>() {
         override fun areItemsTheSame(oldItem: ParliamentData, newItem: ParliamentData): Boolean {

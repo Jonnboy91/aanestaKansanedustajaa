@@ -21,23 +21,34 @@ class PartyListViewModel(application: Application) : AndroidViewModel(applicatio
         members.value?.distinctBy { it.party }
     }
 
-//    private val votingRepository = VotingRepository
-//    var votes = votingRepository.votingData
-
-
     // LiveData to handle navigation to the selected party
-    private val _navigateToSelectedParty = MutableLiveData<ParliamentData>()
-    val navigateToSelectedParty: LiveData<ParliamentData>
+    private val _navigateToSelectedParty = MutableLiveData<ParliamentData?>()
+    val navigateToSelectedParty: LiveData<ParliamentData?>
         get() = _navigateToSelectedParty
+
+    init {
+        refreshDataFromRepository()
+    }
 
     fun displayPartyDetails(memberData: ParliamentData) {
         _navigateToSelectedParty.value = memberData
     }
 
-
     //After the navigation has taken place, make sure navigateToSelectedParty is set to null
     fun displayPartyDetailsComplete() {
         _navigateToSelectedParty.value = null
+    }
+
+    fun refreshDataFromRepository() {
+        viewModelScope.launch {
+            try {
+                ParliamentRepository.refreshParliamentDataEntry()
+            } catch (networkError: IOException) {
+                Toast.makeText(
+                    MyApp.appContext, "$networkError",
+                    Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
 }

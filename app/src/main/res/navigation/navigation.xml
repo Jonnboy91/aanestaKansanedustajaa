@@ -30,5 +30,16 @@
         <argument
             android:name="selectedMember"
             app:argType="com.example.aanestakansanedustajaa.database.ParliamentData" />
+        <action
+            android:id="@+id/action_showComments"
+            app:destination="@id/commentList" />
+    </fragment>
+    <fragment
+        android:id="@+id/commentList"
+        android:name="com.example.aanestakansanedustajaa.commentlist.CommentList"
+        android:label="CommentList">
+        <argument
+            android:name="selectedMemberComments"
+            app:argType="com.example.aanestakansanedustajaa.database.ParliamentData" />
     </fragment>
 </navigation>

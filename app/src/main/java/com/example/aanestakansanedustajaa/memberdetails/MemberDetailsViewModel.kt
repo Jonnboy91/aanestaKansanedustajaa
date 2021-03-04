@@ -1,6 +1,7 @@
 package com.example.aanestakansanedustajaa.memberdetails
 
 import android.app.Application
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -11,6 +12,7 @@ import com.example.aanestakansanedustajaa.R
 import com.example.aanestakansanedustajaa.database.ParliamentData
 import com.example.aanestakansanedustajaa.database.VotingData
 import com.example.aanestakansanedustajaa.database.VotingDatabase
+import com.example.aanestakansanedustajaa.repository.CommentRepository
 import com.example.aanestakansanedustajaa.repository.ParliamentRepository
 import com.example.aanestakansanedustajaa.repository.VotingRepository
 import kotlinx.coroutines.launch
@@ -25,6 +27,10 @@ class MemberDetailsViewModel(parliamentData: ParliamentData, application: Applic
     private val votingRepository = VotingRepository
     var votes = votingRepository.votingData
 
+    val commentRepository = CommentRepository
+    var comments = commentRepository.commentData
+
+
     // The internal MutableLiveData for the selected property
     private val selectedMember = MutableLiveData<ParliamentData>()
 
@@ -32,8 +38,10 @@ class MemberDetailsViewModel(parliamentData: ParliamentData, application: Applic
     var party: String = ""
     var partyLogo: Int = R.drawable.ic_launcher_foreground
 
-//    var score = MutableLiveData<Int>()
-//        private set
+    // LiveData to handle navigation to the selected member
+    private val _navigateToSelectedMemberComments = MutableLiveData<ParliamentData?>()
+    val navigateToSelectedMemberComments: LiveData<ParliamentData?>
+        get() = _navigateToSelectedMemberComments
 
     init {
 
@@ -70,7 +78,15 @@ class MemberDetailsViewModel(parliamentData: ParliamentData, application: Applic
             else -> R.drawable.liike
         }
 
-//        score = votes.value.find { it.hetekaID == parliamentData.hetekaId }.score
+    }
+
+    fun displayMemberComments(memberData: ParliamentData) {
+        _navigateToSelectedMemberComments.value = memberData
+    }
+
+    //After the navigation has taken place, make sure navigateToSelectedParty is set to null
+    fun displayMemberCommentsComplete() {
+        _navigateToSelectedMemberComments.value = null
     }
 
     // Refreshes Database from the API
@@ -110,6 +126,21 @@ class MemberDetailsViewModel(parliamentData: ParliamentData, application: Applic
                     Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    fun comment(id: Int, comment: String){
+        viewModelScope.launch {
+            try {
+                commentRepository.commentDataEntry(id, comment)
+                selectedMember.value?.let { refreshVotesFromRepository() }
+            } catch (networkError: IOException) {
+                Toast.makeText(MyApp.appContext, "$networkError",
+                    Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    fun readComments(){
     }
 
 }
