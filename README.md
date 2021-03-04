@@ -12,7 +12,7 @@ Using that data I have created an app where you can choose first which parties m
 For the voting I have created my own API, which at the moment I have set up using our schools webdisk and phpMyAdmin where we have our schools SQL (http://users.metropolia.fi/~jonne/eduskunta/?action=getall). Voting is done by comparing the hetekaID of the parliament member to the hetekaID on the voting database.
 For this I got help from my school mate https://github.com/tuoku
 
-If you end up checking the code in a closer look, you can see that the VoteList is not used at the moment, it is because that is just something I have thought about that could be a cool feature, so that when you give a vote (+ or -) you would be prompted by a comment box and you could leave a reason to why you voted how you did and then that would be saved also in a database and then there would be an option to go see how everyone has voted and see the comments given. 
+Also implemented same kind of system for comments, made an API same way as with the voting data. Still need to work on the observer with adapter, that seems to have some minor issues, that are not UX friendly.
 
 ## Example of using my vote API 
 #### Getting the points
