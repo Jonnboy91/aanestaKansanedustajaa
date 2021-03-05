@@ -1,50 +1,36 @@
 package com.example.aanestakansanedustajaa.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.aanestakansanedustajaa.MyApp
-import com.example.aanestakansanedustajaa.R
 import com.example.aanestakansanedustajaa.database.ParliamentData
 import com.example.aanestakansanedustajaa.databinding.GridViewCommentBinding
-import com.example.aanestakansanedustajaa.databinding.GridViewMemberBinding
 import com.example.aanestakansanedustajaa.repository.CommentRepository
-import org.w3c.dom.Comment
 
-class CommentListAdapter: ListAdapter<ParliamentData, CommentListAdapter.CommentViewHolder>(CommentDiffCallback) {
+class CommentListAdapter(private val lifecycleOwner: LifecycleOwner): ListAdapter<ParliamentData, CommentListAdapter.CommentViewHolder>(CommentDiffCallback) {
 
     val commentRepository = CommentRepository
     val commentData = commentRepository.commentData
 
-    var comment: String? = ""
-    var date: String? = ""
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
-        val binding = GridViewCommentBinding
-            .inflate(LayoutInflater.from(parent.context), parent, false)
-        return CommentListAdapter.CommentViewHolder(binding)
+        val binding = GridViewCommentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return CommentViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
 
         val parliamentData = getItem(position)
 
-        val updatedComment = Transformations.map(commentData){
-            commentData.value?.find { it.hetekaID == parliamentData.hetekaId }?.comment
-        }
-        val updatedDate = Transformations.map(commentData){
-            commentData.value?.find { it.hetekaID == parliamentData.hetekaId }?.date
-        }
-        updatedComment.observeForever { comment = it }
-        updatedDate.observeForever { date = it }
-
         // Setting the date (first 10 are the year-month-date and the comment to show as the text
-        holder.binding.voteComment.text = "${date?.take(10) ?: ""}\n${comment ?: "Ei jätetty kommentteja"}"
+        commentData.observe(lifecycleOwner, Observer {
+            holder.binding.voteComment.text = "${it.find { it.hetekaID == parliamentData.hetekaId }?.date?.take(10) ?: ""} ${it.find { it.hetekaID == parliamentData.hetekaId }?.comment ?: "Ei kommentteja"}"
+        })
+
     }
 
     class CommentViewHolder(val binding: GridViewCommentBinding)

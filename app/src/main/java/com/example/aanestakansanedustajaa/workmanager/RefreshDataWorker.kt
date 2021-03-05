@@ -17,7 +17,6 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters) :
     }
 
     override suspend fun doWork(): Result {
-//        val database = ParliamentDatabase.getInstance(MyApp.appContext)
         val repository = ParliamentRepository
         try {
             repository.refreshParliamentDataEntry()

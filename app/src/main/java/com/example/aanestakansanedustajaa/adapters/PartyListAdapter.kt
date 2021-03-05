@@ -20,9 +20,8 @@ class PartyListAdapter(private val onClickListener: OnClickListener): ListAdapte
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PartyViewHolder {
 //        val itemView = LayoutInflater.from(MyApp.appContext).inflate(R.layout.grid_view_party, parent, false)
 //        return PartyViewHolder(itemView)
-        val binding = GridViewPartyBinding
-            .inflate(LayoutInflater.from(parent.context), parent, false)
-        return PartyListAdapter.PartyViewHolder(binding)
+        val binding = GridViewPartyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return PartyViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: PartyViewHolder, position: Int) {

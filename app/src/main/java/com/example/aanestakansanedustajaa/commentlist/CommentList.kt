@@ -28,7 +28,7 @@ class CommentList : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_comment_list, container, false)
         viewModel = ViewModelProvider(this, viewModelFactory).get(CommentListViewModel::class.java)
-        adapterComment = CommentListAdapter()
+        adapterComment = CommentListAdapter(this)
 
         binding.voteGrid.adapter = adapterComment
         binding.voteGrid.layoutManager = LinearLayoutManager(MyApp.appContext)

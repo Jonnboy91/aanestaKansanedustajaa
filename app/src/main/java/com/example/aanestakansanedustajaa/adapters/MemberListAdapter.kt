@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.Transformations
 import androidx.recyclerview.widget.DiffUtil
@@ -22,16 +23,13 @@ import com.example.aanestakansanedustajaa.databinding.GridViewMemberBinding
 import com.example.aanestakansanedustajaa.memberlist.MemberList
 import com.example.aanestakansanedustajaa.repository.VotingRepository
 
-class MemberListAdapter(private val onClickListener: OnClickListener): ListAdapter<ParliamentData, MemberListAdapter.MemberViewHolder>(MemberDiffCallback) {
+class MemberListAdapter(private val lifecycle : LifecycleOwner, private val onClickListener: OnClickListener): ListAdapter<ParliamentData, MemberListAdapter.MemberViewHolder>(MemberDiffCallback) {
 
     private val votingRepository = VotingRepository
-    var votes = votingRepository.votingData
-
-    var scores: Int? = 0
+    val votes = votingRepository.votingData
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemberViewHolder {
-        val binding = GridViewMemberBinding
-            .inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = GridViewMemberBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MemberViewHolder(binding)
     }
 
@@ -39,17 +37,12 @@ class MemberListAdapter(private val onClickListener: OnClickListener): ListAdapt
 
         val parliamentData = getItem(position)
 
-        val updatedVote = Transformations.map(votes){
-            votes.value?.find { it.hetekaID == parliamentData.hetekaId }?.score
-        }
-
-        updatedVote.observeForever { scores = it }
-
-
         // Showing members name
         holder.binding.members.text = "${parliamentData.firstname} ${parliamentData.lastname}"
         // Showing members score
-        holder.binding.likeResult.text = "Score: ${votes.value?.find { it.hetekaID == parliamentData.hetekaId }?.score  ?: "---"} $scores"
+        votes.observe(lifecycle, Observer {
+            holder.binding.likeResult.text = "Score: ${votes.value?.find { it.hetekaID == parliamentData.hetekaId }?.score}"
+        })
         // Showing members image
         bindImage(holder.binding.photoMember, "https://avoindata.eduskunta.fi/${parliamentData.pictureUrl}")
         // OnClick event for choosing a member and then transferring the info to MemberDetails fragment

@@ -46,7 +46,7 @@ class MyApp: Application() {
             }
             .build()
 
-        val repeatingRequest = PeriodicWorkRequestBuilder<RefreshDataWorker>(7, TimeUnit.DAYS)
+        val repeatingRequest = PeriodicWorkRequestBuilder<RefreshDataWorker>(15, TimeUnit.MINUTES)
             .setConstraints(constraints)
             .build()
 

@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.aanestakansanedustajaa.MyApp
 import com.example.aanestakansanedustajaa.adapters.CommentListAdapter
 import com.example.aanestakansanedustajaa.database.ParliamentData
+import com.example.aanestakansanedustajaa.database.ParliamentDatabase
 import com.example.aanestakansanedustajaa.repository.CommentRepository
 import com.example.aanestakansanedustajaa.repository.ParliamentRepository
 import kotlinx.coroutines.launch
