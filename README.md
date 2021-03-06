@@ -12,7 +12,7 @@ Using that data I have created an app where you can choose first which parties m
 For the voting I have created my own API, which at the moment I have set up using our schools webdisk and phpMyAdmin where we have our schools SQL (http://users.metropolia.fi/~jonne/eduskunta/?action=getall). Voting is done by comparing the hetekaID of the parliament member to the hetekaID on the voting database.
 For this I got help from my school mate https://github.com/tuoku
 
-Also implemented same kind of system for comments, made an API same way as with the voting data. One problem with the comments is that the BindHolder only shows the first comment for one member, but this is an extra feature that we did not need to have in our project, so I will keep on working that on the side.
+Also implemented same kind of system for comments, made an API same way as with the voting data. One problem with the comments is that the BindHolder only shows the first comment for one member, but this is an extra feature that we did not need to have in our project, so I will try to get this working later on the side of new projects.
 
 ## Example of using my vote API 
 #### Getting the points
