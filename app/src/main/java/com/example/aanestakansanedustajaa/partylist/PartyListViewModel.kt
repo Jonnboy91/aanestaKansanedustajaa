@@ -1,16 +1,9 @@
 package com.example.aanestakansanedustajaa.partylist
 
-//import com.example.aanestakansanedustajaa.repository.ParliamentRepository
 import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.*
-import com.example.aanestakansanedustajaa.MyApp
 import com.example.aanestakansanedustajaa.database.ParliamentData
-import com.example.aanestakansanedustajaa.database.ParliamentDatabase
 import com.example.aanestakansanedustajaa.repository.ParliamentRepository
-import com.example.aanestakansanedustajaa.repository.VotingRepository
-import kotlinx.coroutines.launch
-import java.io.IOException
 
 
 class PartyListViewModel(application: Application) : AndroidViewModel(application) {
@@ -27,10 +20,6 @@ class PartyListViewModel(application: Application) : AndroidViewModel(applicatio
     val navigateToSelectedParty: LiveData<ParliamentData?>
         get() = _navigateToSelectedParty
 
-    init {
-//        refreshDataFromRepository()
-    }
-
     fun displayPartyDetails(memberData: ParliamentData) {
         _navigateToSelectedParty.value = memberData
     }
@@ -39,17 +28,5 @@ class PartyListViewModel(application: Application) : AndroidViewModel(applicatio
     fun displayPartyDetailsComplete() {
         _navigateToSelectedParty.value = null
     }
-//
-//    fun refreshDataFromRepository() {
-//        viewModelScope.launch {
-//            try {
-//                parliamentRepository.refreshParliamentDataEntry()
-//            } catch (networkError: IOException) {
-//                Toast.makeText(
-//                    MyApp.appContext, "$networkError",
-//                    Toast.LENGTH_LONG).show()
-//            }
-//        }
-//    }
 
 }

@@ -4,10 +4,7 @@ import androidx.lifecycle.LiveData
 import com.example.aanestakansanedustajaa.MyApp
 import com.example.aanestakansanedustajaa.database.CommentData
 import com.example.aanestakansanedustajaa.database.CommentDatabase
-import com.example.aanestakansanedustajaa.database.VotingData
-import com.example.aanestakansanedustajaa.database.VotingDatabase
 import com.example.aanestakansanedustajaa.internet.CommentApi
-import com.example.aanestakansanedustajaa.internet.VotingApi
 
 object CommentRepository {
 

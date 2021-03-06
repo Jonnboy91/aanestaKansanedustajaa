@@ -1,11 +1,10 @@
 package com.example.aanestakansanedustajaa.database
 
 import android.os.Parcelable
-import androidx.lifecycle.Transformations.map
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity(tableName = "parliament_member_database")

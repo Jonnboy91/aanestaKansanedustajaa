@@ -4,9 +4,7 @@ import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.aanestakansanedustajaa.MyApp
-import com.example.aanestakansanedustajaa.adapters.MemberListAdapter
 import com.example.aanestakansanedustajaa.database.ParliamentData
-import com.example.aanestakansanedustajaa.database.ParliamentDatabase
 import com.example.aanestakansanedustajaa.repository.ParliamentRepository
 import com.example.aanestakansanedustajaa.repository.VotingRepository
 import kotlinx.coroutines.launch

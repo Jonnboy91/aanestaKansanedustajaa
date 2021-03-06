@@ -6,19 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.aanestakansanedustajaa.MyApp
 import com.example.aanestakansanedustajaa.R
 import com.example.aanestakansanedustajaa.adapters.MemberListAdapter
 import com.example.aanestakansanedustajaa.databinding.FragmentMemberListBinding
-import com.example.aanestakansanedustajaa.memberdetails.MemberDetailsViewModel
-import com.example.aanestakansanedustajaa.memberdetails.MemberDetailsViewModelFactory
 
 class MemberList : Fragment() {
 

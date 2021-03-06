@@ -1,26 +1,15 @@
 package com.example.aanestakansanedustajaa.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.core.net.toUri
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import androidx.lifecycle.Transformations
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.GlideBuilder
-import com.example.aanestakansanedustajaa.MyApp
-import com.example.aanestakansanedustajaa.R
 import com.example.aanestakansanedustajaa.bindImage
 import com.example.aanestakansanedustajaa.database.ParliamentData
 import com.example.aanestakansanedustajaa.databinding.GridViewMemberBinding
-import com.example.aanestakansanedustajaa.memberlist.MemberList
 import com.example.aanestakansanedustajaa.repository.VotingRepository
 
 class MemberListAdapter(private val lifecycle : LifecycleOwner, private val onClickListener: OnClickListener): ListAdapter<ParliamentData, MemberListAdapter.MemberViewHolder>(MemberDiffCallback) {

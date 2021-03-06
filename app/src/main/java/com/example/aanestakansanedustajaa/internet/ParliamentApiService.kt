@@ -1,9 +1,6 @@
 package com.example.aanestakansanedustajaa.internet
 
 import com.example.aanestakansanedustajaa.database.ParliamentData
-
-
-//import com.example.aanestakansanedustajaa.database.ParliamentRecords
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit

@@ -5,20 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.net.toUri
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
 import com.example.aanestakansanedustajaa.R
-import com.example.aanestakansanedustajaa.adapters.MemberListAdapter
 import com.example.aanestakansanedustajaa.bindImage
 import com.example.aanestakansanedustajaa.databinding.FragmentMemberDetailsBinding
-import com.example.aanestakansanedustajaa.memberlist.MemberListDirections
 
-//import kotlinx.android.synthetic.main.fragment_member_details.*
 
 
 class MemberDetails : Fragment() {
@@ -37,8 +31,8 @@ class MemberDetails : Fragment() {
 
         binding.voteUp.setOnClickListener { onUp() }
         binding.voteDown.setOnClickListener { onDown() }
-        binding.sendComment?.setOnClickListener{ comment() }
-        binding.readComments?.setOnClickListener{ readComments()}
+        binding.sendComment.setOnClickListener{ comment() }
+        binding.readComments.setOnClickListener{ readComments()}
 
         // Sets the info for name, party, logo and the member photo
         binding.memberName.text = viewModel.name
@@ -57,31 +51,31 @@ class MemberDetails : Fragment() {
     // Once clicked it will give the hetekaId information of the person who's button was clicked and then deducts points through viewmodel to the API
     private fun onDown() {
         viewModel.chosenMember?.let { viewModel.onDown(it.hetekaId) }
-        binding.commentBox?.visibility = View.VISIBLE
-        binding.sendComment?.visibility = View.VISIBLE
+        binding.commentBox.visibility = View.VISIBLE
+        binding.sendComment.visibility = View.VISIBLE
         binding.voteDown.visibility = View.GONE
         binding.voteUp.visibility = View.GONE
-        binding.readComments?.visibility = View.GONE
+        binding.readComments.visibility = View.GONE
     }
 
     // Once clicked it will give the hetekaId information of the person who's button was clicked and then adds points through viewmodel to the API
     private fun onUp() {
         viewModel.chosenMember?.let { viewModel.onUp(it.hetekaId) }
-        binding.commentBox?.visibility = View.VISIBLE
-        binding.sendComment?.visibility = View.VISIBLE
+        binding.commentBox.visibility = View.VISIBLE
+        binding.sendComment.visibility = View.VISIBLE
         binding.voteDown.visibility = View.GONE
         binding.voteUp.visibility = View.GONE
-        binding.readComments?.visibility = View.GONE
+        binding.readComments.visibility = View.GONE
     }
 
     private fun comment() {
-        viewModel.chosenMember?.let { viewModel.comment(it.hetekaId, binding.commentBox?.text.toString()) }
-        binding.commentBox?.visibility = View.GONE
-        binding.sendComment?.visibility = View.GONE
+        viewModel.chosenMember?.let { viewModel.comment(it.hetekaId, binding.commentBox.text.toString()) }
+        binding.commentBox.visibility = View.GONE
+        binding.sendComment.visibility = View.GONE
         binding.voteDown.visibility = View.VISIBLE
         binding.voteUp.visibility = View.VISIBLE
-        binding.readComments?.visibility = View.VISIBLE
-        binding.commentBox?.text?.clear()
+        binding.readComments.visibility = View.VISIBLE
+        binding.commentBox.text?.clear()
     }
 
     private fun readComments(){

@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+//apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-//apply plugin: 'kotlin-parcelize'
+apply plugin: 'kotlin-parcelize'
 apply plugin: "androidx.navigation.safeargs"
 
 android {
@@ -80,8 +80,6 @@ dependencies {
     // Navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.3'
-    implementation "android.arch.navigation:navigation-fragment-ktx:2.3.3"
-    implementation "android.arch.navigation:navigation-ui-ktx:2.3.3"
 
     // Testing
     testImplementation 'junit:junit:4.13.2'
@@ -95,7 +93,7 @@ dependencies {
 
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.10.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+    kapt 'com.github.bumptech.glide:compiler:4.10.0'
 
     // MultiDex
     implementation "androidx.multidex:multidex:2.0.1"
@@ -104,5 +102,5 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     // WorkManager dependency
-    implementation "android.arch.work:work-runtime-ktx:1.0.1"
+    implementation "androidx.work:work-runtime-ktx:2.5.0"
 }
