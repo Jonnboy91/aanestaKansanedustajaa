@@ -57,4 +57,13 @@ Second view: Members under chosen party
 
 Third view: Details of the member chosen
 
-![MemberDetails](https://user-images.githubusercontent.com/58616855/109813775-72bd0300-7c36-11eb-9a2f-5eff281eabb9.png)
+![MemberDetails2](https://user-images.githubusercontent.com/58616855/110214328-c5075980-7eac-11eb-954a-a7195ddb6c26.png)
+
+Fourth view: Once you have voted, app will prompt for a comment for the vote
+
+![MemberDetailsAfterVote](https://user-images.githubusercontent.com/58616855/110214350-d8b2c000-7eac-11eb-9ced-a19af1dd7c3c.png)
+
+Fifth view: Comments in a recyclerview
+
+![Comments](https://user-images.githubusercontent.com/58616855/110214376-f8e27f00-7eac-11eb-8c03-9f99fe9161ac.png)
+
