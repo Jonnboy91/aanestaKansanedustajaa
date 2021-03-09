@@ -7,7 +7,7 @@ LiveData, ViewModel, room DB, Retrofit/Moshi, RecyclerView, WorkManager, etc. wa
 
 I get the Parliament Members data from an public API (https://avoindata.eduskunta.fi/api/v1/seating/).
 
-Using that data I have created an app where you can choose first which parties members you want to see and after that you can click on the member itself and give him/her a vote.
+Using that data I have created an app where you can choose first which parties members you want to see and after that you can click on the member itself and give him/her a vote and after that you will be able to leave a comment if you want to.
 
 For the voting I have created my own API, which at the moment I have set up using our schools webdisk and phpMyAdmin where we have our schools SQL (http://users.metropolia.fi/~jonne/eduskunta/?action=getall). Voting is done by comparing the hetekaID of the parliament member to the hetekaID on the voting database.
 For this I got help from my school mate https://github.com/tuoku
