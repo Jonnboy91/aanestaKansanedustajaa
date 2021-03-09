@@ -34,7 +34,7 @@ class MyApp: Application() {
     }
 
     /**
-     * Setup WorkManager background job to 'fetch' new network data daily.
+     * Setup WorkManager background job to 'fetch' new network data weekly.
      */
     private fun setupRecurringWork() {
         val constraints = Constraints.Builder()

@@ -28,7 +28,7 @@ class CommentList : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_comment_list, container, false)
         viewModel = ViewModelProvider(this, viewModelFactory).get(CommentListViewModel::class.java)
-        adapterComment = CommentListAdapter(this)
+        adapterComment = CommentListAdapter()
 
         binding.voteGrid.adapter = adapterComment
         binding.voteGrid.layoutManager = LinearLayoutManager(MyApp.appContext)
@@ -36,7 +36,7 @@ class CommentList : Fragment() {
         //Adds vertical divider for the itemViews
         binding.voteGrid.addItemDecoration(DividerItemDecoration(MyApp.appContext, DividerItemDecoration.VERTICAL))
 
-        viewModel.selectedMemberComments.observe(viewLifecycleOwner, {
+        viewModel.chosenMemberComments.observe(viewLifecycleOwner, {
             adapterComment.submitList(it)
         })
 

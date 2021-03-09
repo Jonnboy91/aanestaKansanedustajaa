@@ -40,7 +40,7 @@ class MemberList : Fragment() {
         //Adds vertical divider for the itemViews
         binding.memberGrid.addItemDecoration(DividerItemDecoration(MyApp.appContext, DividerItemDecoration.VERTICAL))
 
-        viewModel.selectedParty.observe(viewLifecycleOwner, {
+        viewModel.chosenParty.observe(viewLifecycleOwner, {
             adapterMember.submitList(it)
         })
 

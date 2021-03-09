@@ -12,18 +12,16 @@ import com.example.aanestakansanedustajaa.databinding.GridViewPartyBinding
 class PartyListAdapter(private val onClickListener: OnClickListener): ListAdapter<ParliamentData, PartyListAdapter.PartyViewHolder>(PartyDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PartyViewHolder {
-//        val itemView = LayoutInflater.from(MyApp.appContext).inflate(R.layout.grid_view_party, parent, false)
-//        return PartyViewHolder(itemView)
         val binding = GridViewPartyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PartyViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: PartyViewHolder, position: Int) {
 
-        val parliamentData = getItem(position)
+        val partyItem = getItem(position)
 
         // Setting the name of the party from the abbreviation to the full name
-        holder.binding.party.text = when (parliamentData.party){
+        holder.binding.party.text = when (partyItem.party){
             "vihr" -> "Vihreä liitto"
             "ps" -> "Perussuomalaiset"
             "kesk" -> "Suomen Keskusta"
@@ -36,7 +34,7 @@ class PartyListAdapter(private val onClickListener: OnClickListener): ListAdapte
         }
 
         // Checking the party name and using the right logo for that
-        holder.binding.logoParty.setImageResource(when (parliamentData.party){
+        holder.binding.logoParty.setImageResource(when (partyItem.party){
             "vihr" -> R.drawable.vihr
             "ps" -> R.drawable.ps
             "kesk" -> R.drawable.kesk
@@ -49,7 +47,7 @@ class PartyListAdapter(private val onClickListener: OnClickListener): ListAdapte
         })
 
         // OnClick event for choosing a member and then transferring the info to MemberList fragment
-        holder.itemView.setOnClickListener { onClickListener.onClick(parliamentData) }
+        holder.itemView.setOnClickListener { onClickListener.onClick(partyItem) }
     }
 
     class PartyViewHolder(val binding: GridViewPartyBinding)

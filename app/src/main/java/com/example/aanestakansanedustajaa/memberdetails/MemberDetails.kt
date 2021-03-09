@@ -35,14 +35,14 @@ class MemberDetails : Fragment() {
         binding.readComments.setOnClickListener{ readComments()}
 
         // Sets the info for name, party, logo and the member photo
-        binding.memberName.text = viewModel.name
+        binding.memberName.text = viewModel.fullName
         binding.partyName.text = viewModel.party
         binding.partyLogo.setImageResource(viewModel.partyLogo)
         bindImage(binding.memberPhoto, "https://avoindata.eduskunta.fi/${viewModel.chosenMember?.pictureUrl}")
 
         // Observes the vote record from the repository
-        viewModel.votes.observe(viewLifecycleOwner, Observer {
-            binding.voteResult.text = "Score: ${it.find { it.hetekaID == parliamentData.hetekaId }?.score.toString()}"
+        viewModel.updatedVote.observe(viewLifecycleOwner, Observer {
+            binding.voteResult.text = "Score: $it"
         })
 
         return binding.root
@@ -68,6 +68,7 @@ class MemberDetails : Fragment() {
         binding.readComments.visibility = View.GONE
     }
 
+    // Once clicked it will give the hetekaId information of the person who's button was clicked and the comment in the commentbox and saves that to the API
     private fun comment() {
         viewModel.chosenMember?.let { viewModel.comment(it.hetekaId, binding.commentBox.text.toString()) }
         binding.commentBox.visibility = View.GONE
@@ -78,11 +79,10 @@ class MemberDetails : Fragment() {
         binding.commentBox.text?.clear()
     }
 
+    // Once clicked it will transfer the parliamentmemberdata to the next fragment
     private fun readComments(){
-        viewModel.readComments()
         viewModel.chosenMember?.let {
             this.findNavController().navigate(MemberDetailsDirections.actionShowComments(it))
-            viewModel.displayMemberCommentsComplete()
         }
     }
 

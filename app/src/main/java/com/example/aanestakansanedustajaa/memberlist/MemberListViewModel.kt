@@ -12,29 +12,22 @@ import java.io.IOException
 
 class MemberListViewModel(parliamentData: ParliamentData, application: Application) : AndroidViewModel(application) {
 
+    private val votingRepository = VotingRepository
+
     val parliamentRepository = ParliamentRepository
     var members = parliamentRepository.parliamentData
-    val chosenParty = members.value?.filter { it.party == parliamentData.party }
-
-    private val votingRepository = VotingRepository
-    var votes = votingRepository.votingData
+    val chosenParty = Transformations.map(members){
+        members.value?.filter { it.party == parliamentData.party }
+    }
 
     // LiveData to handle navigation to the selected member
     private val _navigateToSelectedMember = MutableLiveData<ParliamentData?>()
     val navigateToSelectedMember: LiveData<ParliamentData?>
         get() = _navigateToSelectedMember
 
-    // The internal MutableLiveData for the selected property
-    private val _selectedParty = MutableLiveData<List<ParliamentData>>()
-
-    // The external LiveData for the SelectedProperty
-    val selectedParty: LiveData<List<ParliamentData>>
-        get() = _selectedParty
-
     // Initialize the _selectedProperty MutableLiveData
     init {
         refreshVotesFromRepository()
-        _selectedParty.value = chosenParty
     }
 
     fun displayMemberDetails(memberData: ParliamentData) {

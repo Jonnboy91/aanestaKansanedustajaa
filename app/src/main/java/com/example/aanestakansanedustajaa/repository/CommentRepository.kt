@@ -11,12 +11,12 @@ object CommentRepository {
     private val dao = CommentDatabase.getInstance(MyApp.appContext).commentDatabaseDao
     val commentData: LiveData<List<CommentData>> = dao.getAllComments()
 
-    // Refreshes the database from API and checks if there are any changes in the votes
+    // Refreshes the database from API and checks if there are any changes in the comments
     suspend fun refreshCommentDataEntry() {
         val votes = CommentApi.retrofitService.getAllCommentRecords()
         votes.forEach { dao.insertOrUpdate(it) }
     }
-    // Registers the vote down to the API
+    // Registers the comment to the API
     suspend fun commentDataEntry(id: Int, commentValue: String){
         CommentApi.retrofitService.addComment(id.toString(), commentValue)
     }

@@ -2,11 +2,9 @@ package com.example.aanestakansanedustajaa.commentlist
 
 import android.app.Application
 import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.aanestakansanedustajaa.MyApp
+import com.example.aanestakansanedustajaa.database.CommentData
 import com.example.aanestakansanedustajaa.database.ParliamentData
 import com.example.aanestakansanedustajaa.repository.CommentRepository
 import com.example.aanestakansanedustajaa.repository.ParliamentRepository
@@ -15,25 +13,16 @@ import java.io.IOException
 
 class CommentListViewModel(parliamentData: ParliamentData, application: Application) : AndroidViewModel(application) {
 
-    val parliamentRepository = ParliamentRepository
-    var membersdata = parliamentRepository.parliamentData
-    val chosenData = membersdata.value?.filter { it.hetekaId == parliamentData.hetekaId }
-
     val commentRepository = CommentRepository
-    var members = commentRepository.commentData
-    val chosenMember = members.value?.filter { it.hetekaID == parliamentData.hetekaId }
+    var membersComments = commentRepository.commentData
 
-    // The internal MutableLiveData for the selected property
-    private val _selectedMemberComments = MutableLiveData<List<ParliamentData>>()
-
-    // The external LiveData for the SelectedProperty
-    val selectedMemberComments: LiveData<List<ParliamentData>>
-        get() = _selectedMemberComments
+    val chosenMemberComments = Transformations.map(membersComments){
+        membersComments.value?.filter { it.hetekaID == parliamentData.hetekaId }
+    }
 
     // Initialize the _selectedProperty MutableLiveData
     init {
         refreshCommentsFromRepository()
-        _selectedMemberComments.value = chosenData
     }
 
 

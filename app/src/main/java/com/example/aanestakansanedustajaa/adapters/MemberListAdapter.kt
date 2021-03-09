@@ -24,18 +24,18 @@ class MemberListAdapter(private val lifecycle : LifecycleOwner, private val onCl
 
     override fun onBindViewHolder(holder: MemberViewHolder, position: Int) {
 
-        val parliamentData = getItem(position)
+        val memberItem = getItem(position)
 
         // Showing members name
-        holder.binding.members.text = "${parliamentData.firstname} ${parliamentData.lastname}"
-        // Showing members score
+        holder.binding.members.text = "${memberItem.firstname} ${memberItem.lastname}"
+        // Showing members score (Observing it to update the value to the right one on the first view)
         votes.observe(lifecycle, Observer {
-            holder.binding.likeResult.text = "Score: ${votes.value?.find { it.hetekaID == parliamentData.hetekaId }?.score}"
+            holder.binding.likeResult.text = "Score: ${votes.value?.find { it.hetekaID == memberItem.hetekaId }?.score}"
         })
         // Showing members image
-        bindImage(holder.binding.photoMember, "https://avoindata.eduskunta.fi/${parliamentData.pictureUrl}")
+        bindImage(holder.binding.photoMember, "https://avoindata.eduskunta.fi/${memberItem.pictureUrl}")
         // OnClick event for choosing a member and then transferring the info to MemberDetails fragment
-        holder.itemView.setOnClickListener { onClickListener.onClick(parliamentData) }
+        holder.itemView.setOnClickListener { onClickListener.onClick(memberItem) }
     }
 
     companion object MemberDiffCallback : DiffUtil.ItemCallback<ParliamentData>() {

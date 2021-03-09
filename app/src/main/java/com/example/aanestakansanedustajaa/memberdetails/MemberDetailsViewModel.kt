@@ -2,10 +2,7 @@ package com.example.aanestakansanedustajaa.memberdetails
 
 import android.app.Application
 import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.aanestakansanedustajaa.MyApp
 import com.example.aanestakansanedustajaa.R
 import com.example.aanestakansanedustajaa.database.ParliamentData
@@ -17,40 +14,31 @@ import java.io.IOException
 
 class MemberDetailsViewModel(parliamentData: ParliamentData, application: Application) : AndroidViewModel(application) {
 
+    private val votingRepository = VotingRepository
+    private var votes = votingRepository.votingData
+    var updatedVote = Transformations.map(votes){
+        it.find { it.hetekaID == parliamentData.hetekaId }?.score
+    }
+
+    private val commentRepository = CommentRepository
+
     private val parliamentRepository = ParliamentRepository
-    var members = parliamentRepository.parliamentData
+    private var members = parliamentRepository.parliamentData
     val chosenMember = members.value?.find { it.hetekaId == parliamentData.hetekaId }
 
-    private val votingRepository = VotingRepository
-    var votes = votingRepository.votingData
-
-    val commentRepository = CommentRepository
-    var comments = commentRepository.commentData
-
-
-    // The internal MutableLiveData for the selected property
-    private val selectedMember = MutableLiveData<ParliamentData>()
-
-    var name: String = ""
+    var fullName: String = ""
     var party: String = ""
     var partyLogo: Int = R.drawable.ic_launcher_foreground
 
-    // LiveData to handle navigation to the selected member
-    private val _navigateToSelectedMemberComments = MutableLiveData<ParliamentData?>()
-    val navigateToSelectedMemberComments: LiveData<ParliamentData?>
-        get() = _navigateToSelectedMemberComments
-
     init {
-
-        selectedMember.value = chosenMember
 
         refreshVotesFromRepository()
 
         //Simpler for the fragment view when name is already "added" here
-        name = "${selectedMember.value?.firstname} ${selectedMember.value?.lastname}"
+        fullName = "${chosenMember?.firstname} ${chosenMember?.lastname}"
 
         // Setting the name of the party from the abbreviation to the full name
-        party = when (selectedMember.value?.party){
+        party = when (chosenMember?.party){
             "vihr" -> "Vihreä liitto"
             "ps" -> "Perussuomalaiset"
             "kesk" -> "Suomen Keskusta"
@@ -63,7 +51,7 @@ class MemberDetailsViewModel(parliamentData: ParliamentData, application: Applic
         }
 
         // Checking the party name and using the right logo for that
-        partyLogo = when(selectedMember.value?.party){
+        partyLogo = when(chosenMember?.party){
             "vihr" -> R.drawable.vihr
             "ps" -> R.drawable.ps
             "kesk" -> R.drawable.kesk
@@ -77,17 +65,8 @@ class MemberDetailsViewModel(parliamentData: ParliamentData, application: Applic
 
     }
 
-    fun displayMemberComments(memberData: ParliamentData) {
-        _navigateToSelectedMemberComments.value = memberData
-    }
-
-    //After the navigation has taken place, make sure navigateToSelectedParty is set to null
-    fun displayMemberCommentsComplete() {
-        _navigateToSelectedMemberComments.value = null
-    }
-
     // Refreshes Database from the API
-    fun refreshVotesFromRepository() {
+    private fun refreshVotesFromRepository() {
         viewModelScope.launch {
             try {
                 votingRepository.refreshVotingDataEntry()
@@ -103,7 +82,7 @@ class MemberDetailsViewModel(parliamentData: ParliamentData, application: Applic
         viewModelScope.launch {
             try {
                 votingRepository.voteUpDataEntry(id)
-                selectedMember.value?.let { refreshVotesFromRepository() }
+                refreshVotesFromRepository()
             } catch (networkError: IOException) {
                 Toast.makeText(MyApp.appContext, "$networkError",
                     Toast.LENGTH_LONG).show()
@@ -117,7 +96,7 @@ class MemberDetailsViewModel(parliamentData: ParliamentData, application: Applic
         viewModelScope.launch {
             try {
                 votingRepository.voteDownDataEntry(id)
-                selectedMember.value?.let { refreshVotesFromRepository() }
+                refreshVotesFromRepository()
             } catch (networkError: IOException) {
                 Toast.makeText(MyApp.appContext, "$networkError",
                     Toast.LENGTH_LONG).show()
@@ -129,15 +108,12 @@ class MemberDetailsViewModel(parliamentData: ParliamentData, application: Applic
         viewModelScope.launch {
             try {
                 commentRepository.commentDataEntry(id, comment)
-                selectedMember.value?.let { refreshVotesFromRepository() }
+                refreshVotesFromRepository()
             } catch (networkError: IOException) {
                 Toast.makeText(MyApp.appContext, "$networkError",
                     Toast.LENGTH_LONG).show()
             }
         }
-    }
-
-    fun readComments(){
     }
 
 }
